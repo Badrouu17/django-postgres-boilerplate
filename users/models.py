@@ -13,4 +13,4 @@ class User(models.Model):
     password_reset_expires = models.BigIntegerField(null=True)
 
     def __str__(self):
-        pass
+        return self.name

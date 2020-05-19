@@ -8,6 +8,10 @@ from .views import authViews, userViews
 urlpatterns = [
     # authViews
     path('auth/', authViews.hey),
+    path('auth/signup', authViews.hey),
+    path('auth/login', authViews.hey),
+    path('auth/forgotPassword', authViews.hey),
+    path('auth/resetPassword', authViews.hey),
     # userViews
     path('user/', userViews.hey),
     path('user/uploadPhotos', userViews.uploadPhotos),
