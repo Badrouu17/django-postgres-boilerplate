@@ -41,6 +41,9 @@ def createSendToken(user):
 def signup(req):
     data = req.data
 
+    if ("email" not in data or "password" not in data or "name" not in data):
+        return abort('please provide a name, email and password', 400)
+
     newUser = {
         "name": data["name"],
         "email": data["email"],
@@ -58,7 +61,26 @@ def signup(req):
 
 @api_view(["POST"])
 def login(req):
-    pass
+    # 1) Check if email and password exist
+    data = req.data
+    if ("email" not in data or "password" not in data):
+        return abort('please provide an email and password', 400)
+
+    # 2) Check if user exists
+    result = User.objects.raw(getUserWithEmail(data["email"]))
+    ready = UserSerializer(result, many=True)
+
+    if len(ready.data) == 0:
+        return abort('no user with this email', 400)
+
+    user = dict(ready.data[0])
+
+    # 3) check password is correct
+    if not comparePasswords(user["password"], data["password"]):
+        return abort('the password you enterd is wrong, please try again', 400)
+
+    # 4) If everything ok, send token to client
+    return createSendToken(user)
 
 
 @api_view(["POST"])
