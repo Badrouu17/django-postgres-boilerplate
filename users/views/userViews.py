@@ -1,9 +1,9 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from ..serializers import UserSerializer
-from users.models import User
-from ..sql import getUserWithId, getUserWithEmail
 from ..abort import abort
+from users.models import User
+from ..serializers import UserSerializer
+from ..sql import getUserWithId, getUserWithEmail
 # Create your views here.
 
 

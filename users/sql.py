@@ -2,7 +2,8 @@ def insertUser(user):
     name, email, password = (user["name"], user["email"], user["password"])
 
     return f"""INSERT INTO users_user(name, email, password) 
-               VALUES('{name}', '{email}', '{password}')"""
+               VALUES('{name}', '{email}', '{password}') 
+               RETURNING *"""
 
 
 def getUserWithEmail(email):
