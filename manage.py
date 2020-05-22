@@ -3,6 +3,12 @@
 import os
 import sys
 
+from pathlib import Path
+from dotenv import load_dotenv
+
+env_path = Path('.') / '.env'
+load_dotenv(dotenv_path=env_path)
+
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_postgres.settings')

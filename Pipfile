@@ -12,6 +12,10 @@ django = "*"
 pylint-django = "*"
 djangorestframework = "*"
 psycopg2 = "*"
+python-dotenv = "*"
+cloudinary = "*"
+pyjwt = "*"
+flask-bcrypt = "*"
 
 [requires]
 python_version = "3.8"

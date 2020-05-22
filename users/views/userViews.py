@@ -3,11 +3,13 @@ from rest_framework.response import Response
 from ..serializers import UserSerializer
 from users.models import User
 from ..sql import getUserWithId, getUserWithEmail
+from ..abort import abort
 # Create your views here.
 
 
 @api_view(["GET"])
 def hey(req):
+    # return abort("try later")
     users = User.objects.raw(getUserWithEmail("user1@gmail.com"))
     ready = UserSerializer(users, many=True)
     print("📌", ready.data)
