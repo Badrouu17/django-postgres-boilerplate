@@ -14,14 +14,14 @@ def getUserWithEmail(email):
 
 def getUserWithId(id):
     return f""" SELECT id,name,email,photo,password,password_changed_at
-                FROM users_user_user
-                WHERE users_user_user.id = {id} """
+                FROM users_user
+                WHERE users_user.id = {id} """
 
 
 def updateUserPassResetData(id, prt, pre):
     return f""" UPDATE users_user
-                SET users_user.password_reset_token = '{prt}' ,users_user.password_reset_expires = {pre}
-                WHERE users_user.id = {id} """
+                SET password_reset_token = '{prt}' ,password_reset_expires = {pre}
+                WHERE id = {id} """
 
 
 def getUserByResetToken(prt, now):
@@ -34,31 +34,31 @@ def getUserByResetToken(prt, now):
 
 def updateResetPassword(id, psw, pca):
     return f""" UPDATE users_user
-                SET users_user.password = '{psw}', 
-                users_user.password_reset_token = NULL, 
-                users_user.password_reset_expires = NULL,
-                users_user.password_changed_at = '{pca}'
-                WHERE users_user.id = {id} """
+                SET password = '{psw}', 
+                password_reset_token = NULL, 
+                password_reset_expires = NULL,
+                password_changed_at = '{pca}'
+                WHERE id = {id} """
 
 
 def updateUserEmail(id, email):
     return f""" UPDATE users_user
                 SET email = '{email}'
-                WHERE users_user.id = {id} """
+                WHERE id = {id} """
 
 
 def updateUserName(id, name):
     return f""" UPDATE users_user
                 SET name = '{name}'
-                WHERE users_user.id = {id} """
+                WHERE id = {id} """
 
 
 def updatUserPhoto(id, photo):
     return f""" UPDATE users_user
                 SET photo = '{photo}'
-                WHERE users_user.id = {id} """
+                WHERE id = {id} """
 
 
 def deleteUser(id):
     return f""" DELETE FROM users_user
-                WHERE users_user.id = {id} """
+                WHERE id = {id} """
