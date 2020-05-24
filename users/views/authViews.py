@@ -8,7 +8,7 @@ from ..serializers import UserSerializer
 from ..useful.password import (hashPassword, comparePasswords,
                                changedPasswordAfter,
                                createPasswordResetToken, cryptToken)
-from ..useful.jwt import (signToken, checkToken)
+from ..useful.jwt import (signToken)
 
 from ..sql import (insertUser, getUserWithId,
                    getUserWithEmail, getUserByResetToken,
@@ -20,15 +20,6 @@ from ..useful.mail import Mailer
 import time
 
 # Create your views here.
-
-
-@api_view(["GET"])
-def hey(req):
-    users = User.objects.raw(getUserWithEmail("user1@gmail.com"))
-    ready = UserSerializer(users, many=True)
-    print("📌", ready.data)
-
-    return Response(ready.data)
 
 
 def createSendToken(user):
