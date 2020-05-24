@@ -44,19 +44,22 @@ def updateResetPassword(id, psw, pca):
 def updateUserEmail(id, email):
     return f""" UPDATE users_user
                 SET email = '{email}'
-                WHERE id = {id} """
+                WHERE id = {id}
+                RETURNING * """
 
 
 def updateUserName(id, name):
     return f""" UPDATE users_user
                 SET name = '{name}'
-                WHERE id = {id} """
+                WHERE id = {id}
+                RETURNING * """
 
 
 def updatUserPhoto(id, photo):
     return f""" UPDATE users_user
                 SET photo = '{photo}'
-                WHERE id = {id} """
+                WHERE id = {id} 
+                RETURNING *"""
 
 
 def deleteUser(id):
