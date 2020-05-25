@@ -7,8 +7,10 @@ from ..serializers import UserSerializer
 from ..useful.jwt import (checkToken, signToken)
 from ..useful.password import (
     changedPasswordAfter, hashPassword, comparePasswords)
-import time
 from ..sql import getUserWithId, getUserWithEmail, updateResetPassword, updateUserEmail, updateUserName, updatUserPhoto, deleteUser
+import time
+from cloudinary.utils import cloudinary_url
+from cloudinary.uploader import upload
 
 # Create your views here.
 
@@ -127,14 +129,31 @@ def deleteMe(req, user):
 
 
 def uploadToCloud(req):
-    pass
+    file_to_upload = req.FILES['file']
+    if file_to_upload:
+        upload_result = upload(file_to_upload)
+        photo_url = cloudinary_url(upload_result['public_id'],
+                                   format="jpg",
+                                   crop="fill",
+                                   width=500,
+                                   height=500)
+        return photo_url
+
+    return abort('photo couldnt upload to the cloud, try later', 400)
 
 
-def savePhotoInDb(req, url):
-    pass
+def savePhotoInDb(user, url):
+    if url:
+        user["photo"] = url[0]
+        with connection.cursor() as cursor:
+            cursor.execute(updatUserPhoto(user["id"], url[0]))
+        return url
+    return abort('photo couldnt be saved in the db', 400)
 
 
 @api_view(["POST"])
 @protect
 def uploadPhotos(req, user):
-    pass
+    url = uploadToCloud(req)
+    savePhotoInDb(user, url)
+    return Response({"url": url, "msg": "photo uploeded successfully!"}, status=200)
